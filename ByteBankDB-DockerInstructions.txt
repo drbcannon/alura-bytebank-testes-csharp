@@ -1,0 +1,11 @@
+If you want to use a Container with MySQL Database, follow these steps:
+
+1- docker pull mysql:8.0.27
+2- docker run -e MYSQL_ROOT_PASSWORD=root --name alura-mysql -d -p 3306:3306 mysql:8.0.27
+3- docker exec -it alura-mysql bash
+4- mysql -u root -p
+5- type the password "root"
+6- create database bytebankbd;
+7- use bytebankdb;
+8- Execute the script ".\Alura.ByteBank.Dados\Migrations\sql.SQL"
+9- In the packge mangement console in VS, put the standard project "alura.bytebank.dados" and into folder ".\Alura.ByteBank.Dados" execute the command "dotnet ef database update". (Maybe is needed to execute "dotnet tool install --global dotnet-ef" before.)
