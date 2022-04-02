@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Alura.ByteBank.Dados\Alura.ByteBank.Dados.csproj" />
-    <ProjectReference Include="..\Alura.ByteBank.Domain\Alura.ByteBank.Dominio.csproj" />
   </ItemGroup>
 
 </Project>
