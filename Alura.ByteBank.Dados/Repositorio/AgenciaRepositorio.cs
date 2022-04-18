@@ -26,8 +26,8 @@ namespace Alura.ByteBank.Dados.Repositorio
 
                 return true;
             }
-            catch{
-                return false;
+            catch(Exception ex){
+                throw new Exception($"Erro ao adiconar uma agência => {ex.Message}");
             }
         }
 
@@ -44,8 +44,9 @@ namespace Alura.ByteBank.Dados.Repositorio
                 _contexto.SaveChanges();
                 return true;
             }
-            catch{
-                return false;
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao atualizar uma agência => {ex.Message}");
             }
         }
 
@@ -63,8 +64,9 @@ namespace Alura.ByteBank.Dados.Repositorio
                 _contexto.SaveChanges();
                 return true;
             }
-            catch{
-                return false;
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao excluir uma agência => {ex.Message}");
             }
         }
 
@@ -79,9 +81,9 @@ namespace Alura.ByteBank.Dados.Repositorio
                 }
                 return agencia;
             }
-            catch
+            catch (Exception ex)
             {
-               throw new Exception($"Erro ao obter agência com Id = {id}.") ;
+                throw new Exception($"Erro ao Obter uma agência => {ex.Message}");
             }
         }
 
