@@ -113,7 +113,7 @@ namespace Alura.ByteBank.Dados.Repositorio
             }
             catch
             {
-                throw new Exception("Erro ao obter conta,");
+                throw new Exception("Erro ao obter conta.");
             }
         }
 
