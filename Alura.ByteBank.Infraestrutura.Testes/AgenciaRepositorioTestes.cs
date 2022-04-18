@@ -5,19 +5,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Alura.ByteBank.Infraestrutura.Testes
 {
     public class AgenciaRepositorioTestes
     {
         private readonly IAgenciaRepositorio _repositorio;
+        public ITestOutputHelper _saidaConsoleTeste { get; set; }
 
-        public AgenciaRepositorioTestes()
+        public AgenciaRepositorioTestes(ITestOutputHelper saidaConsoleTeste)
         {
+            _saidaConsoleTeste = saidaConsoleTeste;
+            _saidaConsoleTeste.WriteLine("Construtor executado com sucesso!");
+
             //Injetando dependências no construtor;
             var servico = new ServiceCollection();
             servico.AddTransient<IAgenciaRepositorio, AgenciaRepositorio>();
@@ -109,7 +111,7 @@ namespace Alura.ByteBank.Infraestrutura.Testes
         {
             //Arrange
             //Act
-            var atualizado = _repositorio.Excluir(3);
+            var atualizado = _repositorio.Excluir(2);
 
             //Assert
             Assert.True(atualizado);
