@@ -29,5 +29,72 @@ namespace Alura.ByteBank.Infraestrutura.Testes
             Assert.NotNull(lista);
             Assert.True(lista.Count > 0);
         }
+
+        [Fact]
+        public void TestaClientePorId()
+        {
+            //Arrange
+            //Act
+            var cliente = _repositorio.ObterPorId(1);
+
+            //Assert
+            Assert.NotNull(cliente);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        public void TestaClientePorVariosId(int id)
+        {
+            //Arrange
+            //Act
+            var cliente = _repositorio.ObterPorId(id);
+
+            //Assert
+            Assert.NotNull(cliente);
+
+        }
+
+        [Fact]
+        public void TesteInsereUmNovoClienteNaBaseDeDados()
+        {
+            //Arrange            
+            string nome = "Alberto Roberto";
+            string cpf = "088.157.930-03";
+            Guid identificador = Guid.NewGuid();
+            string profissao = "Administrador de Empresas";
+
+            var cliente = new Cliente()
+            {
+                Nome = nome,
+                CPF = cpf,
+                Identificador = identificador,
+                Profissao = profissao
+            };
+
+            //Act
+            var retorno = _repositorio.Adicionar(cliente);
+
+            //Assert
+            Assert.True(retorno);
+
+
+        }
+
+        [Fact]
+        public void TestaAtualizacaoInformacaoDeterminadoCliente()
+        {
+            //Arrange        
+            var cliente = _repositorio.ObterPorId(2);
+            var nomeNovo = "João Pedro";
+            cliente.Nome = nomeNovo;
+
+            //Act
+            var atualizado = _repositorio.Atualizar(2, cliente);
+
+            //Assert
+            Assert.True(atualizado);
+        }
+
     }
 }

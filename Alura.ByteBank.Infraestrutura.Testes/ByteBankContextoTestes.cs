@@ -17,10 +17,9 @@ namespace Alura.ByteBank.Infraestrutura.Testes
             {
                 conectado = contexto.Database.CanConnect();
             }
-            catch (System.Exception)
+            catch (Exception e)
             {
-
-                throw;
+                throw new Exception($"Não foi possível conectar a base de dados.[{e.Message}]");
             }
 
             //Assert
