@@ -2,7 +2,12 @@
 using Alura.ByteBank.Dominio.Entidades;
 using Alura.ByteBank.Dominio.Interfaces.Repositorios;
 using Microsoft.Extensions.DependencyInjection;
+using Moq;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Alura.ByteBank.Infraestrutura.Testes
@@ -12,10 +17,13 @@ namespace Alura.ByteBank.Infraestrutura.Testes
         private readonly IClienteRepositorio _repositorio;
         public ClienteRepositorioTestes()
         {
+            //Injetando dependências no construtor;
             var servico = new ServiceCollection();
             servico.AddTransient<IClienteRepositorio, ClienteRepositorio>();
+
             var provedor = servico.BuildServiceProvider();
             _repositorio = provedor.GetService<IClienteRepositorio>();
+
         }
 
         [Fact]
@@ -27,11 +35,11 @@ namespace Alura.ByteBank.Infraestrutura.Testes
 
             //Assert
             Assert.NotNull(lista);
-            Assert.True(lista.Count > 0);
+
         }
 
         [Fact]
-        public void TestaClientePorId()
+        public void TestaObterClientesPorId()
         {
             //Arrange
             //Act
@@ -39,14 +47,15 @@ namespace Alura.ByteBank.Infraestrutura.Testes
 
             //Assert
             Assert.NotNull(cliente);
+
         }
 
         [Theory]
         [InlineData(1)]
         [InlineData(2)]
-        public void TestaClientePorVariosId(int id)
+        public void TestaObterClientesPorVariosId(int id)
         {
-            //Arrange
+            //Arrange           
             //Act
             var cliente = _repositorio.ObterPorId(id);
 
@@ -78,7 +87,6 @@ namespace Alura.ByteBank.Infraestrutura.Testes
             //Assert
             Assert.True(retorno);
 
-
         }
 
         [Fact]
@@ -95,6 +103,22 @@ namespace Alura.ByteBank.Infraestrutura.Testes
             //Assert
             Assert.True(atualizado);
         }
+
+        // Testes com Mock
+        [Fact]
+        public void TestaObterClientesMock()
+        {
+            //Arange
+            var bytebankRepositorioMock = new Mock<IByteBankRepositorio>();
+            var mock = bytebankRepositorioMock.Object;
+
+            //Act
+            var lista = mock.BuscarClientes();
+
+            //Assert
+            bytebankRepositorioMock.Verify(b => b.BuscarClientes());
+        }
+
 
     }
 }

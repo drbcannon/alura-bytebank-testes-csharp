@@ -30,7 +30,7 @@ namespace Alura.ByteBank.Infraestrutura.Testes
         [Fact]
         public void TestaObterTodasAgencias()
         {
-            //Arrange        
+            //Arrange         
 
             //Act
             List<Agencia> lista = _repositorio.ObterTodos();
@@ -104,7 +104,6 @@ namespace Alura.ByteBank.Infraestrutura.Testes
             //Assert
             Assert.True(atualizado);
         }
-
         [Fact]
         public void TestaRemoverInformacaoDeterminadaAgencia()
         {
@@ -116,7 +115,6 @@ namespace Alura.ByteBank.Infraestrutura.Testes
             Assert.True(atualizado);
         }
 
-
         //Exceções
         [Fact]
         public void TestaExcecaoConsultaPorAgenciaPorId()
@@ -124,12 +122,48 @@ namespace Alura.ByteBank.Infraestrutura.Testes
 
             //Act     
             //Assert
-            Assert.Throws<FormatException>(
+            Assert.Throws<Exception>(
                 () => _repositorio.ObterPorId(33)
              );
 
         }
 
 
+        // Testes com Mock
+        [Fact]
+        public void TestaObterAgenciasMock()
+        {
+            //Arange
+            var bytebankRepositorioMock = new Mock<IByteBankRepositorio>();
+            var mock = bytebankRepositorioMock.Object;
+
+            //Act
+            var lista = mock.BuscarAgencias();
+
+            //Assert
+            bytebankRepositorioMock.Verify(b => b.BuscarAgencias());
+        }
+
+        [Fact]
+        public void TestaAdiconarAgenciaMock()
+        {
+            // Arrange
+            var agencia = new Agencia()
+            {
+                Nome = "Agência Amaral",
+                Identificador = Guid.NewGuid(),
+                Id = 4,
+                Endereco = "Rua Arthur Costa",
+                Numero = 6497
+            };
+
+            var repositorioMock = new ByteBankRepositorio();
+
+            //Act
+            var adicionado = repositorioMock.AdicionarAgencia(agencia);
+
+            //Assert
+            Assert.True(adicionado);
+        }
     }
 }
